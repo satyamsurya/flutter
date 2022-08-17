@@ -53,41 +53,43 @@
 </style>
 </head>
 <body>
-
+<div id="loading"></div>
 <script>
-         window.addEventListener('load', function (ev) {
-             // Download main.dart.js
-             _flutter.loader.loadEntrypoint({
-                 serviceWorker: {
-                     serviceWorkerVersion: serviceWorkerVersion,
-                 }
-             }).then(function (engineInitializer) {
-                 // Initialize the Flutter engine
-                 return engineInitializer.initializeEngine();
-             }).then(function (appRunner) {
-                 // Run the app
-                 return appRunner.runApp();
-             });
+         window.addEventListener('load', function(ev) {
+           var loading = document.querySelector('#loading');
+           loading.textContent = "Loading entrypoint...";
+           _flutter.loader.loadEntrypoint({
+             serviceWorker: {
+               serviceWorkerVersion: serviceWorkerVersion,
+             }
+           }).then(function(engineInitializer) {
+             loading.textContent = "Initializing engine...";
+             return engineInitializer.initializeEngine();
+           }).then(function(appRunner) {
+             loading.textContent = "Running app...";
+             return appRunner.runApp();
+           });
          });
       </script>
- 
+</body>
 
 
-<script>
-  window.onload = function () {
-        setTimeout(function () {
-          var loadingIndicator =                 document.getElementById("loading_indicator");
-          if (loadingIndicator) {
-            loadingIndicator.remove();
-          }
-        }, 10000);
-};
-</script>
+
+<!--<script>-->
+<!--  window.onload = function () {-->
+<!--        setTimeout(function () {-->
+<!--          var loadingIndicator =                 document.getElementById("loading_indicator");-->
+<!--          if (loadingIndicator) {-->
+<!--            loadingIndicator.remove();-->
+<!--          }-->
+<!--        }, 10000);-->
+<!--};-->
+<!--</script>-->
 
 <!--check that web is loaded or not to show loader -->
 
 
 
 
-</body>
+
 </html>
